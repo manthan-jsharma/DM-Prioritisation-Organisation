@@ -24,6 +24,7 @@ const SPAM_KEYWORDS = [
   "risk-free",
   "satisfaction",
   "special promotion",
+  "special offer",
 ];
 
 const LEGITIMATE_DOMAINS = [
