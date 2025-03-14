@@ -1,7 +1,8 @@
 import { Suspense } from "react";
-import EmailList from "@/components/email-list";
+
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Skeleton } from "@/components/ui/skeleton";
+import { EmailListProvider } from "@/components/react-query-provider";
 
 export default function DashboardPage() {
   return (
@@ -22,7 +23,7 @@ export default function DashboardPage() {
 
         <TabsContent value="priority" className="space-y-4">
           <Suspense fallback={<EmailListSkeleton />}>
-            <EmailList />
+            <EmailListProvider />
           </Suspense>
         </TabsContent>
 
