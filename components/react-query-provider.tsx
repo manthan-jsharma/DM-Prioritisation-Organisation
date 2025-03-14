@@ -17,10 +17,14 @@ export function ReactQueryProvider({
     <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
   );
 }
-export function EmailListProvider() {
+
+export interface EmailListProviderProps {
+  category: string;
+}
+export function EmailListProvider({ category }: EmailListProviderProps) {
   return (
     <ReactQueryProvider>
-      <EmailList />
+      <EmailList category={category} />
     </ReactQueryProvider>
   );
 }
