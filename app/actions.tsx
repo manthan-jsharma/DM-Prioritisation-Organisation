@@ -10,11 +10,24 @@
 
 //   return fetchEmails(accessToken);
 // }
+"use server";
 import { fetchEmails, fetchEmailsByCategory, type Email } from "@/lib/gmail";
-import { getServerSession } from "next-auth/next";
+// import { getServerSession} from "next-auth/next";
 
+import { Session } from "next-auth";
+
+interface CustomSession extends Session {
+  accessToken: string;
+}
+
+export async function getServerSession(context: any) {
+  const session = await import("next-auth/react").then(({ getSession }) =>
+    getSession(context)
+  );
+  return session as unknown as CustomSession;
+}
 export async function getEmails(): Promise<Email[]> {
-  const session = await getServerSession();
+  const session = await getServerSession({ req: {} });
 
   if (!session?.accessToken) {
     throw new Error("Not authenticated");
@@ -24,7 +37,7 @@ export async function getEmails(): Promise<Email[]> {
 }
 
 export async function getEmailsByCategory(category: string): Promise<Email[]> {
-  const session = await getServerSession();
+  const session = await getServerSession({ req: {} });
 
   if (!session?.accessToken) {
     throw new Error("Not authenticated");
